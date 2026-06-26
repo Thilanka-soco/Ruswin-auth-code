@@ -1,1 +1,53 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ruswin Access Code</title>
+    <!-- Include jQuery Library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        #result { margin-top: 20px; padding: 10px; background: #eef; border: 1px solid #99b; display: none; }
+    </style>
+</head>
+<body>
+
+    <h2>Request Code</h2>
+    
+    <button id="loadDataBtn">Request a Code</button>
+    <div id="result"></div>
+
+    <script>
+        $(document).ready(function() {
+            // Bind click event handler to the button
+            $('#loadDataBtn').click(function() {
+                $('#result').show().text('Loading...');
+
+                // Perform the AJAX call
+                $.ajax({
+                    url: 'https://oauth.employmenthero.com/oauth2/authorize',
+                    type: 'GET',
+                     data: {
+                        client_id: 'RMspvXuEWHle0UyzcFHH8UXHeb5JxB4p4OS24cFkVkA',
+                        response_type: 'code',
+                        redirect_uri: 'https://stanlee-dev.crm6.dynamics.com/'
+                            },
+                    dataType: 'json',
+                    success: function(data) {
+                        // Injects server response into the page
+                        /*$('#result').html(
+                            '<strong>Title:</strong> ' + data.title + '<br>' +
+                            '<strong>Completed:</strong> ' + data.completed
+                        );*/
+                    },
+                    error: function(xhr, status, error) {
+                        $('#result').text('An error occurred: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
